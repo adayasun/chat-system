@@ -1,0 +1,37 @@
+#
+#	FILE			: CHAT-SYSTEM/clientMakefile
+#	PROJECT			: SENG*2030 - System Programming
+#	PROGRAMMER		: Amy Dayasundara, Paul Smith
+#	FIRST VERSION		: 2020-04-06	
+#	DESCRIPTION		: 	
+#		Makefile for Chat Client.
+
+# =======================================================
+#                  Hoochmacallit - Data Creator
+# =======================================================
+
+#FINAL BINARY TARGET
+./bin/chat-client : ./obj/clientMain.o ./obj/clientConnection.o ./obj/windowFunctions.o  ./obj/chatInput.o 
+	cc ./obj/clientMain.o ./obj/clientConnection.o ./obj/windowFunctions.o ./obj/chatInput.o -lncurses -pthread -o ./bin/chat-client
+
+./obj/clientMain.o : ./src/clientMain.c ./inc/clientConstant.h ./inc/clientInclude.h ./inc/clientPrototypes.h ./inc/clientStructs.h
+	cc -c ./src/clientMain.c -o ./obj/clientMain.o
+
+./obj/clientConnection.o : ./src/clientConnection.c ./inc/clientConstant.h ./inc/clientInclude.h ./inc/clientPrototypes.h ./inc/clientStructs.h
+	cc -c ./src/clientConnection.c -o ./obj/clientConnection.o
+
+./obj/windowFunctions.o : ./src/windowFunctions.c ./inc/clientConstant.h ./inc/clientInclude.h ./inc/clientPrototypes.h ./inc/clientStructs.h
+	cc -c ./src/windowFunctions.c -o ./obj/windowFunctions.o
+
+./obj/chatInput.o : ./src/chatInput.c ./inc/clientConstant.h ./inc/clientInclude.h ./inc/clientPrototypes.h ./inc/clientStructs.h
+	cc -c ./src/chatInput.c -o ./obj/chatInput.o
+# =======================================================
+# Other targets
+# =======================================================
+                   
+all : ./bin/chat-client
+
+clean:
+	rm -f ./bin/*
+	rm -f ./obj/*.o
+

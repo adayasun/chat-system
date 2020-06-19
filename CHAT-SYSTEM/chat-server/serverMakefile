@@ -1,0 +1,36 @@
+#
+#	FILE			: CHAT-SYSTEM/serverMakefile
+#	PROJECT			: SENG*2030 - System Programming
+#	PROGRAMMER		: Amy Dayasundara, Paul Smith
+#	FIRST VERSION		: 2020-04-06	
+#	DESCRIPTION		: 	
+#		Makefile for Chat Server.
+
+# =======================================================
+#                  Hoochmacallit - Data Creator
+# =======================================================
+
+#FINAL BINARY TARGET
+./bin/chat-server : ./obj/serverMain.o ./obj/serverSocket.o ./obj/serverConnection.o
+	cc ./obj/serverMain.o ./obj/serverSocket.o ./obj/serverConnection.o -pthread -o ./bin/chat-server
+
+#./obj/mainEncode.o : ./src/mainEncode.c ./inc/encodeInclude.h ./inc/prototypes.h ./inc/constants.h
+#	cc -c ./src/mainEncode.c -o ./obj/mainEncode.o
+./obj/serverMain.o : ./src/serverMain.c ./inc/serverConstant.h ./inc/serverInclude.h ./inc/serverPrototypes.h ./inc/serverStructs.h
+	cc -c ./src/serverMain.c -o ./obj/serverMain.o
+
+./obj/serverSocket.o : ./src/serverSocket.c ./inc/serverConstant.h ./inc/serverInclude.h ./inc/serverPrototypes.h ./inc/serverStructs.h
+	cc -c ./src/serverSocket.c -o ./obj/serverSocket.o
+
+./obj/serverConnection.o : ./src/serverConnection.c ./inc/serverConstant.h ./inc/serverInclude.h ./inc/serverPrototypes.h ./inc/serverStructs.h
+	cc -c ./src/serverConnection.c -o ./obj/serverConnection.o
+# =======================================================
+# Other targets
+# =======================================================
+                   
+all : ./bin/chat-server
+
+clean:
+	rm -f ./bin/*
+	rm -f ./obj/*.o
+
